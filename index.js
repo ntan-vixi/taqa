@@ -36,6 +36,16 @@ app.get('/webhooks/twitter', function(request, response) {
   }
 })
 
+/**
+ * Receives DM events
+ **/
+app.post('/webhooks/twitter', function(request, response) {
+
+  // replace this with your own bot logic
+
+  response.send('200 OK')
+})
+
 app.listen(app.get('port'), function() {
 	console.log("running: " + app.get('port'))
 })
