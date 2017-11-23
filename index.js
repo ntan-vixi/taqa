@@ -26,7 +26,7 @@ app.get('/webhook/twitter', function(req, res) {
 	var crypto = require('crypto');
 	var hmac = crypto.createHmac('sha256', config.consumer_secret);
 	var reqQuery = req.query;
-	if (!reqQuery) {
+	if (reqQuery) {
 		hmac.update(reqQuery.crc_token);
 		var sha256_hash_digest = hmac.digest('base64');
 		res.status(200).send({ "response_token": "sha256=" + sha256_hash_digest });
