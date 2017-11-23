@@ -19,17 +19,22 @@ app.get('/', function(req, res) {
 })
 
 //Twitter
-/*app.get('/webhook/twitter', function(req, res) {
-	res.send('get webhook')
-})*/
-app.get('/webhook/twitter', function(req, res) {
-	var crypto = require('crypto');
-	var hmac = crypto.createHmac('sha256', config.consumer_secret);
-	var reqQuery = req.query;
-	hmac.update(reqQuery.crc_token);
-	var sha256_hash_digest = hmac.digest('base64');
-	res.status(200).send({ "response_token": "sha256=" + sha256_hash_digest });
-});
+app.get('/webhooks/twitter', function(request, response) {
+
+  var crc_token = request.query.crc_token
+
+  if (crc_token) {
+    var hash = security.get_challenge_response(crc_token, config.consumer_secret)
+
+    response.status(200);
+    response.send({
+      response_token: 'sha256=' + hash
+    })
+  } else {
+    response.status(400);
+    response.send('Error: crc_token missing from request.')
+  }
+})
 
 app.listen(app.get('port'), function() {
 	console.log("running: " + app.get('port'))
