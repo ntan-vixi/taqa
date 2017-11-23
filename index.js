@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 
 //ROUTES
 app.get('/', function(req, res) {
-	res.send("Chatbot running...")
+	res.send("Chatbot running......")
 })
 
 //Twitter
