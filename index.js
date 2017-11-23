@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 
 //Twitter
 app.get('/webhook/twitter', function(req, res) {
-
+	res.send('get webhook')
 })
 
 app.listen(app.get('port'), function() {
